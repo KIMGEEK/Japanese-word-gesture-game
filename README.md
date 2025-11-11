@@ -7,7 +7,7 @@
 
 | Name | Role | GitHub ID |
 |------|------|------------|
-| 백하준 (Hajun Baek) | Game Logic / Gesture Recognition | @ |
+| 백하준 (Hajun Baek) | Game Logic / Gesture Recognition | @KIMGEEK |
 | 윤현섭 (Hyunseob Yoon) | Project Lead / Game Logic & System Integration | @ |
 | 박재인 (Jaein Park) | Database & Learning Module / Backend | @ |
 | 최윤서 (Yunseo Choi) | UI / UX Design & Animation | @ |
