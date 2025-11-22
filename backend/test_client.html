@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Motion Backend Test</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; }
+        #container {
+            width: 640px;
+            height: 480px;
+            border: 2px solid #333;
+            margin: 0 auto;
+            position: relative;
+            background-color: #f0f0f0;
+        }
+        /* 움직일 빨간 점 (손가락) */
+        #cursor {
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%); /* 중심 기준 배치 */
+            transition: all 0.05s linear; /* 부드러운 움직임 */
+        }
+        #log {
+            margin-top: 20px;
+            font-family: monospace;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h2>🖐️ 모션 인식 백엔드 테스트</h2>
+    <p>카메라 앞에서 검지 손가락을 움직여보세요.</p>
+    
+    <div id="container">
+        <div id="cursor"></div>
+    </div>
+
+    <div id="log">데이터 대기 중...</div>
+
+    <script>
+        // 1. 웹소켓 연결 (백엔드 주소와 일치해야 함)
+        const ws = new WebSocket("ws://localhost:8000/ws");
+        
+        const cursor = document.getElementById('cursor');
+        const log = document.getElementById('log');
+        const container = document.getElementById('container');
+
+        // 연결 성공 시
+        ws.onopen = () => {
+            console.log("서버에 연결되었습니다.");
+            log.innerText = "서버 연결 성공! 데이터 수신 대기 중...";
+        };
+
+        // 메시지 수신 시 (여기가 핵심)
+        ws.onmessage = (event) => {
+            // 2. 데이터 파싱
+            const data = JSON.parse(event.data);
+            
+            // 3. 로그 출력
+            log.innerText = `수신된 좌표: X=${data.x.toFixed(4)}, Y=${data.y.toFixed(4)}`;
+
+            // 4. 빨간 점 이동 (Unity처럼 좌표 변환)
+            // x, y는 0.0 ~ 1.0 비율이므로 컨테이너 크기를 곱해줌
+            const x = data.x * container.clientWidth;
+            const y = data.y * container.clientHeight;
+
+            cursor.style.left = `${x}px`;
+            cursor.style.top = `${y}px`;
+        };
+
+        ws.onclose = () => {
+            log.innerText = "서버 연결이 종료되었습니다.";
+            console.log("연결 종료");
+        };
+
+        ws.onerror = (error) => {
+            console.error("에러 발생:", error);
+        };
+    </script>
+</body>
+</html>
