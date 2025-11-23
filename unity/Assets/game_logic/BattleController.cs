@@ -3,63 +3,45 @@ using System.Collections;
 
 public class BattleController : MonoBehaviour
 {
-    [Header("플레이어 / 몬스터 HP")]
     public Health playerHealth;
     public Health monsterHealth;
 
-    [Header("플레이어 / 몬스터 애니메이션")]
     public AttackAnimation playerAnim;
     public AttackAnimation monsterAnim;
 
-    private bool isBusy = false; // 애니메이션 중복 실행 방지
+    private bool busy = false;
 
-    public BattleManager battle; // 추가
-
-    // =============================
-    // 플레이어 공격 (BattleManager에서 호출)
-    // =============================
     public void PlayerAttack()
     {
-        if (!isBusy)
+        if (!busy)
             StartCoroutine(PlayerAttackRoutine());
     }
 
     IEnumerator PlayerAttackRoutine()
     {
-        isBusy = true;
-
-        // 플레이어 공격 애니메이션 재생
+        busy = true;
         yield return StartCoroutine(playerAnim.PlayAttack());
-
-        // 데미지 적용
         monsterHealth.TakeDamage(100);
 
-        // 사망 처리
         if (monsterHealth.IsDead)
         {
             monsterAnim.PlayDead();
             Debug.Log("몬스터 사망!");
         }
 
-        isBusy = false;
+        busy = false;
     }
 
-    //  몬스터 공격
     public void MonsterAttack()
     {
-        if (!isBusy)
+        if (!busy)
             StartCoroutine(MonsterAttackRoutine());
     }
 
     IEnumerator MonsterAttackRoutine()
     {
-        isBusy = true;
-
-
-        // 몬스터 공격 애니메이션 재생
+        busy = true;
         yield return StartCoroutine(monsterAnim.PlayAttack());
-
-        // 데미지 적용
         playerHealth.TakeDamage(100);
 
         if (playerHealth.IsDead)
@@ -68,6 +50,6 @@ public class BattleController : MonoBehaviour
             Debug.Log("플레이어 사망!");
         }
 
-        isBusy = false;
+        busy = false;
     }
 }

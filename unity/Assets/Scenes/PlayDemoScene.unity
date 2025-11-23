@@ -615,7 +615,7 @@ MonoBehaviour:
   - letter: "\u304A"
     rect: {fileID: 1311677563}
   lineRenderer: {fileID: 325212093}
-  input: {fileID: 0}
+  input: {fileID: 1665829015}
 --- !u!212 &285873691
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2552,6 +2552,8 @@ MonoBehaviour:
   apiClient: {fileID: 184924282}
   magicInput: {fileID: 1665829015}
   targetLevel: 1
+  battleController: {fileID: 1930649571}
+  magicCircleController: {fileID: 285873690}
 --- !u!4 &1376571946
 Transform:
   m_ObjectHideFlags: 0

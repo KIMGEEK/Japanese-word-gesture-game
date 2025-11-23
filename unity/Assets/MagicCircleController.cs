@@ -20,10 +20,11 @@ public class MagicCircleController : MonoBehaviour
 
     public MagicCircleInput input;  // 추가
 
-    public void OnSelectLetter(string letter)
-    {
-        input.AddLetter(letter);
-    }
+    // 선택방식으로 하다가 일단 안 씀
+    //public void OnSelectLetter(string letter)
+    //{
+    //    input.AddLetter(letter);
+    //}
 
     private bool isLocked = false;
 
@@ -76,7 +77,7 @@ public class MagicCircleController : MonoBehaviour
 
         AddLinePoint(item.rect);
 
-        BattleManager.Instance.AddLetter(item.letter);
+        input.AddLetter(item.letter);
     }
 
     void AddLinePoint(RectTransform rect)
