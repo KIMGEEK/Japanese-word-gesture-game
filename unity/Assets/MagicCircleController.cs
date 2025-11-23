@@ -19,6 +19,7 @@ public class MagicCircleController : MonoBehaviour
     private string lastLetter = ""; // 중복 방지용
 
     public MagicCircleInput input;  // 추가
+    public int LettersCount => letters.Count;
 
     // 선택방식으로 하다가 일단 안 씀
     //public void OnSelectLetter(string letter)
@@ -42,6 +43,33 @@ public class MagicCircleController : MonoBehaviour
             {
                 TrySelectLetter(item);
             }
+        }
+    }
+
+    public void SetLetters(string[] lettersToUse)
+    {
+        // 빈 배열 들어오면 초기화 처리
+        if (lettersToUse == null || lettersToUse.Length == 0)
+        {
+            for (int i = 0; i < letters.Count; i++)
+            {
+                letters[i].letter = "";
+
+                var tmp = letters[i].rect.GetComponentInChildren<TextMeshProUGUI>();
+                if (tmp != null)
+                    tmp.text = "";
+            }
+            return;
+        }
+
+        // 정상적인 경우
+        for (int i = 0; i < letters.Count; i++)
+        {
+            letters[i].letter = lettersToUse[i];
+
+            var tmp = letters[i].rect.GetComponentInChildren<TextMeshProUGUI>();
+            if (tmp != null)
+                tmp.text = lettersToUse[i];
         }
     }
 
@@ -78,6 +106,7 @@ public class MagicCircleController : MonoBehaviour
         AddLinePoint(item.rect);
 
         input.AddLetter(item.letter);
+        HighlightLetter(item.rect);
     }
 
     void AddLinePoint(RectTransform rect)
@@ -115,6 +144,51 @@ public class MagicCircleController : MonoBehaviour
         yield return new WaitForSeconds(sec);
         isLocked = false;
     }
+
+    void HighlightLetter(RectTransform rect)
+    {
+        var circle = rect.Find("HighlightCircle");
+        if (circle == null) return;
+
+        var img = circle.GetComponent<Image>();
+        if (img == null) return;
+
+        StartCoroutine(PlayCircleEffect(img));
+    }
+
+    IEnumerator PlayCircleEffect(Image img)
+    {
+        img.gameObject.SetActive(true);
+        img.color = new Color(1, 1, 1, 0);
+
+        // scale up 0 → 1.2
+        img.rectTransform.localScale = Vector3.zero;
+
+        float t = 0;
+        while (t < 1)
+        {
+            t += Time.deltaTime * 2f;
+
+            img.rectTransform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 1.2f, t);
+            img.color = new Color(1, 1, 1, Mathf.Lerp(0, 1, t));
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        // fade out
+        t = 0;
+        while (t < 1)
+        {
+            t += Time.deltaTime * 2f;
+            img.color = new Color(1, 1, 1, Mathf.Lerp(1, 0, t));
+            yield return null;
+        }
+
+        img.gameObject.SetActive(false);
+    }
+
 }
 
 [System.Serializable]

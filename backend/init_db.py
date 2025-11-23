@@ -14,6 +14,7 @@ def init_db():
         {"japanese": "りんご", "korean": "사과", "level": 1},
         {"japanese": "学校", "korean": "학교", "level": 2},
         {"japanese": "先生", "korean": "선생님", "level": 2},
+        {"japanese": "数学", "korean": "수학", "level": 2},
         {"japanese": "宇宙", "korean": "우주", "level": 3},
         {"japanese": "約束", "korean": "약속", "level": 3},
     ]
