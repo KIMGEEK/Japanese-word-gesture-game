@@ -10,6 +10,8 @@ public class WordQuizManager : MonoBehaviour
     private Queue<WordDto> wordQueue;            // 단어 큐
     private WordDto current;                     // 현재 정답 단어
 
+    public BattleManager battle; 
+
     void Start()
     {
         // 레벨 단어 로드
@@ -51,20 +53,20 @@ public class WordQuizManager : MonoBehaviour
     {
         string userAnswer = magicInput.GetResultString();
 
-        Debug.Log($"입력 값: {userAnswer}");
+        bool isCorrect = userAnswer == current.japanese;
 
-        if (userAnswer == current.japanese)
+        if (isCorrect)
         {
-            Debug.Log("정답!");
-            // TODO: BattleController에서 player 공격 애니메이션 등 연결
+            Debug.Log("정답 → 플레이어 공격!");
+            battle.PlayerAttack();     // ← BattleManager로 이벤트 전달
         }
         else
         {
-            Debug.Log("오답!");
-            // TODO: 패널티 or 몬스터 공격
+            Debug.Log("오답 → 몬스터 공격!");
+            battle.MonsterAttack();    // ← 오답 시 몬스터 반격
         }
 
-        // 다음 문제로 이동
         NextWord();
     }
+
 }

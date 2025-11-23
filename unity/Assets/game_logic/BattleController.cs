@@ -28,8 +28,6 @@ public class BattleController : MonoBehaviour
     {
         isBusy = true;
 
-        Debug.Log("[Battle] 플레이어 공격!");
-
         // 플레이어 공격 애니메이션 재생
         yield return StartCoroutine(playerAnim.PlayAttack());
 
