@@ -18,6 +18,13 @@ public class MagicCircleController : MonoBehaviour
     private List<Vector3> selectedPositions = new List<Vector3>();
     private string lastLetter = ""; // 중복 방지용
 
+    public MagicCircleInput input;  // 추가
+
+    public void OnSelectLetter(string letter)
+    {
+        input.AddLetter(letter);
+    }
+
     private bool isLocked = false;
 
     void Start()

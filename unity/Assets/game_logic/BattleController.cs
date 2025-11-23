@@ -13,6 +13,8 @@ public class BattleController : MonoBehaviour
 
     private bool isBusy = false; // 애니메이션 중복 실행 방지
 
+    public BattleManager battle; // 추가
+
     // =============================
     // 플레이어 공격 (BattleManager에서 호출)
     // =============================
@@ -55,7 +57,6 @@ public class BattleController : MonoBehaviour
     {
         isBusy = true;
 
-        Debug.Log("[Battle] 몬스터 공격!");
 
         // 몬스터 공격 애니메이션 재생
         yield return StartCoroutine(monsterAnim.PlayAttack());
