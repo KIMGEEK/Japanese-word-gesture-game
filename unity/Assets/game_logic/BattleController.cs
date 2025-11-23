@@ -3,52 +3,72 @@ using System.Collections;
 
 public class BattleController : MonoBehaviour
 {
+    [Header("플레이어 / 몬스터 HP")]
     public Health playerHealth;
     public Health monsterHealth;
 
+    [Header("플레이어 / 몬스터 애니메이션")]
     public AttackAnimation playerAnim;
     public AttackAnimation monsterAnim;
 
-    private int maxTurns = 3;
+    private bool isBusy = false; // 애니메이션 중복 실행 방지
 
-    void Start()
+    // =============================
+    // 플레이어 공격 (BattleManager에서 호출)
+    // =============================
+    public void PlayerAttack()
     {
-        StartCoroutine(TurnBattle());
+        if (!isBusy)
+            StartCoroutine(PlayerAttackRoutine());
     }
 
-    IEnumerator TurnBattle()
+    IEnumerator PlayerAttackRoutine()
     {
-        for (int turn = 0; turn < maxTurns; turn++)
+        isBusy = true;
+
+        Debug.Log("[Battle] 플레이어 공격!");
+
+        // 플레이어 공격 애니메이션 재생
+        yield return StartCoroutine(playerAnim.PlayAttack());
+
+        // 데미지 적용
+        monsterHealth.TakeDamage(100);
+
+        // 사망 처리
+        if (monsterHealth.IsDead)
         {
-            // Player 공격
-            Debug.Log("Player → Monster 공격!");
-            yield return StartCoroutine(playerAnim.PlayAttack());
-            monsterHealth.TakeDamage(100);
-
-            if (monsterHealth.IsDead)
-            {
-                monsterAnim.PlayDead();
-                Debug.Log("몬스터 사망!");
-                yield break;
-            }
-
-            yield return new WaitForSeconds(1f);
-
-            // Monster 공격
-            Debug.Log("Monster → Player 공격!");
-            yield return StartCoroutine(monsterAnim.PlayAttack());
-            playerHealth.TakeDamage(100);
-
-            if (playerHealth.IsDead)
-            {
-                playerAnim.PlayDead();
-                Debug.Log("플레이어 사망…");
-                yield break;
-            }
-
-            yield return new WaitForSeconds(1f);
+            monsterAnim.PlayDead();
+            Debug.Log("몬스터 사망!");
         }
 
-        Debug.Log("3턴 종료!");
+        isBusy = false;
+    }
+
+    //  몬스터 공격
+    public void MonsterAttack()
+    {
+        if (!isBusy)
+            StartCoroutine(MonsterAttackRoutine());
+    }
+
+    IEnumerator MonsterAttackRoutine()
+    {
+        isBusy = true;
+
+        Debug.Log("[Battle] 몬스터 공격!");
+
+        // 몬스터 공격 애니메이션 재생
+        yield return StartCoroutine(monsterAnim.PlayAttack());
+
+        // 데미지 적용
+        playerHealth.TakeDamage(100);
+
+        if (playerHealth.IsDead)
+        {
+            playerAnim.PlayDead();
+            Debug.Log("플레이어 사망!");
+        }
+
+        isBusy = false;
     }
 }

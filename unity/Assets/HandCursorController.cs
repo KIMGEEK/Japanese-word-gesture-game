@@ -12,6 +12,8 @@ public class HandCursorController : MonoBehaviour
     [Header("좌표 해석용 Canvas")]
     public Canvas canvas;
 
+    public static Vector2 cursorNormalizedPos; // 0~1 좌표 저장
+
     private void Awake()
     {
         if (wsClient != null)
@@ -30,6 +32,7 @@ public class HandCursorController : MonoBehaviour
 
     private void OnHandPositionReceived(Vector2 normalizedPos)
     {
+        cursorNormalizedPos = normalizedPos;
         // 서버에서 넘겨주는 x,y가 0~1 사이라고 가정 (왼쪽~오른쪽, 아래~위)
         // Canvas 기준 좌표로 변환
         if (canvas == null || cursorRect == null)
@@ -39,7 +42,7 @@ public class HandCursorController : MonoBehaviour
 
         // (0,0)~(1,1) → Canvas 좌표로 맵핑
         float x = (normalizedPos.x - 0.5f) * canvasRect.sizeDelta.x;
-        float y = (normalizedPos.y - 0.5f) * canvasRect.sizeDelta.y;
+        float y = ((1 - normalizedPos.y) - 0.5f) * canvasRect.sizeDelta.y;
 
         cursorRect.anchoredPosition = new Vector2(x, y);
     }
