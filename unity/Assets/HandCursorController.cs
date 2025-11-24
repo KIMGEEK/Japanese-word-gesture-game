@@ -12,7 +12,8 @@ public class HandCursorController : MonoBehaviour
     [Header("좌표 해석용 Canvas")]
     public Canvas canvas;
 
-    public static Vector2 cursorNormalizedPos; // 0~1 좌표 저장
+    private Vector2 smoothPos;   // 스무딩된 좌표
+    private float smoothFactor = 0.15f; // 작을수록 부드럽게
 
     private void Awake()
     {
@@ -21,6 +22,8 @@ public class HandCursorController : MonoBehaviour
             wsClient.OnHandPositionReceived += OnHandPositionReceived;
         }
     }
+
+    private Vector2 targetPos; // WebSocket에서 받은 원본 좌표
 
     private void OnDestroy()
     {
@@ -32,18 +35,20 @@ public class HandCursorController : MonoBehaviour
 
     private void OnHandPositionReceived(Vector2 normalizedPos)
     {
-        cursorNormalizedPos = normalizedPos;
-        // 서버에서 넘겨주는 x,y가 0~1 사이라고 가정 (왼쪽~오른쪽, 아래~위)
-        // Canvas 기준 좌표로 변환
-        if (canvas == null || cursorRect == null)
-            return;
-
         RectTransform canvasRect = canvas.GetComponent<RectTransform>();
 
         // (0,0)~(1,1) → Canvas 좌표로 맵핑
         float x = (normalizedPos.x - 0.5f) * canvasRect.sizeDelta.x;
         float y = ((1 - normalizedPos.y) - 0.5f) * canvasRect.sizeDelta.y;
 
-        cursorRect.anchoredPosition = new Vector2(x, y);
+        targetPos = new Vector2(x, y);
+    }
+
+    private void Update()
+    {
+        smoothPos = Vector2.Lerp(smoothPos, targetPos, smoothFactor);
+
+        if (cursorRect != null)
+            cursorRect.anchoredPosition = smoothPos;
     }
 }
