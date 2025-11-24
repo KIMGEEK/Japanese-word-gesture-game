@@ -66,6 +66,18 @@ public class BattleController : MonoBehaviour
         {
             playerAnim.PlayDead();
             Debug.Log("ÇÃ·¹ÀÌ¾î »ç¸Á!");
+
+            if (playerHealth.gameOverController != null)
+            {
+                playerHealth.gameOverController.ShowGameOver();
+            }
+            else
+            {
+                Debug.LogError("GameOverController ¿¬°á ¾È µÊ!");
+            }
+
+            busy = false;
+            yield break;
         }
 
         busy = false;

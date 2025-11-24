@@ -15,6 +15,7 @@ public class AttackAnimation : MonoBehaviour
     public Sprite deadSprite;
 
     public float frameDelay = 0.12f;
+    public bool isPlayer = false;
 
 
     [Header("Death Adjustment")]
@@ -51,13 +52,14 @@ public class AttackAnimation : MonoBehaviour
         // 원래 값들 저장
         originalPosition = spriteRenderer.rectTransform.anchoredPosition;
         originalSize = spriteRenderer.rectTransform.sizeDelta;
+        if (!isPlayer)
+        {
+            // 죽는 위치로 이동
+            spriteRenderer.rectTransform.anchoredPosition += deathOffset;
 
-        // 죽는 위치로 이동
-        spriteRenderer.rectTransform.anchoredPosition += deathOffset;
-
-        // 크기 축소 적용
-        spriteRenderer.rectTransform.sizeDelta = originalSize * deathScale;
-
+            // 크기 축소 적용
+            spriteRenderer.rectTransform.sizeDelta = originalSize * deathScale;
+        }
         // 스프라이트 변경
         SetSprite(deadSprite);
     }

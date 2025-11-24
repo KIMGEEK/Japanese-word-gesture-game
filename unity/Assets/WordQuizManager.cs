@@ -7,7 +7,7 @@ public class WordQuizManager : MonoBehaviour
 {
     public WordApiClient apiClient;
     public MagicCircleInput magicInput;
-    public int targetLevel = 1;
+    public static int targetLevel = 1;
 
     public BattleController battleController;   // ← 직접 연결
     public MagicCircleController magicCircleController;

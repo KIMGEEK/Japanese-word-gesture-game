@@ -21,6 +21,8 @@ public class GameClearController : MonoBehaviour
     {
         clearPanel.SetActive(false);
         Time.timeScale = 1f;
+        battle.playerHealth.ResetHealth();   // Ãß°¡
+        battle.playerHealth.UpdateBar();
 
         battle.ResetMonster();
 

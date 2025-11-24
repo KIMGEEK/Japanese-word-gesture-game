@@ -24,12 +24,17 @@ public class Health : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHP -= amount;
-        if (currentHP < 0) currentHP = 0;
+
+        if (currentHP <= 0)
+        {
+            currentHP = 0;
+            UpdateBar();
+            Die();
+
+            return;
+        }
 
         UpdateBar();
-
-        if (currentHP == 0)
-            Die();
     }
 
     public void UpdateBar()

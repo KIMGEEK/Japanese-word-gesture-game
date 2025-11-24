@@ -3,7 +3,14 @@ using UnityEngine.SceneManagement;
 
 public class GameOverController : MonoBehaviour
 {
+    [Header("게임오버 패널")]
     public GameObject gameOverPanel;
+
+    void Start()
+    {
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
+    }
 
     public void ShowGameOver()
     {
@@ -14,7 +21,7 @@ public class GameOverController : MonoBehaviour
     public void Retry()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
 
