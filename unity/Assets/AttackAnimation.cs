@@ -19,7 +19,13 @@ public class AttackAnimation : MonoBehaviour
 
     [Header("Death Adjustment")]
     public Vector2 deathOffset = new Vector2(0, -40);    
-    public float deathScale = 0.8f;                      
+    public float deathScale = 0.8f;
+
+    void Start()
+    {
+        originalPosition = spriteRenderer.rectTransform.anchoredPosition;
+        originalSize = spriteRenderer.rectTransform.sizeDelta;
+    }
 
     public IEnumerator PlayAttack()
     {
@@ -56,6 +62,11 @@ public class AttackAnimation : MonoBehaviour
         SetSprite(deadSprite);
     }
 
+    public void PlayIdle()
+    {
+        SetSprite(idleSprite);
+    }
+
     private void SetSprite(Sprite sprite)
     {
         if (spriteRenderer is Image img)
@@ -63,5 +74,12 @@ public class AttackAnimation : MonoBehaviour
 
         else if (spriteRenderer is SVGImage svg)
             svg.sprite = sprite;
+    }
+
+    public void ResetPose()
+    {
+        spriteRenderer.rectTransform.anchoredPosition = originalPosition;
+        spriteRenderer.rectTransform.sizeDelta = originalSize;
+        PlayIdle();
     }
 }

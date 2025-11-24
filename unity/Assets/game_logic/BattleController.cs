@@ -11,6 +11,16 @@ public class BattleController : MonoBehaviour
 
     private bool busy = false;
 
+    public GameClearController clearController;
+    public Transform monsterTransform;
+    private Vector3 monsterStartPos;
+    public WordQuizManager quizManager;
+
+    void Start()
+    {
+        monsterStartPos = monsterTransform.position;
+    }
+
     public void PlayerAttack()
     {
         if (!busy)
@@ -27,6 +37,14 @@ public class BattleController : MonoBehaviour
         {
             monsterAnim.PlayDead();
             Debug.Log("몬스터 사망!");
+            quizManager.OnLevelClear();
+            if (clearController != null)
+                clearController.ShowClear();
+            else
+                Debug.LogError("GameClearController 연결 안 됨!");
+
+            busy = false;
+            yield break;
         }
 
         busy = false;
@@ -52,4 +70,12 @@ public class BattleController : MonoBehaviour
 
         busy = false;
     }
+
+    public void ResetMonster()
+    {
+        monsterHealth.ResetHealth();        // HP 회복
+        monsterAnim.ResetPose();             // 위치 / 크기 / idle 복구
+        monsterHealth.UpdateBar();
+    }
+
 }

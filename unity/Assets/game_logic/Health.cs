@@ -12,6 +12,9 @@ public class Health : MonoBehaviour
 
     public bool IsDead => currentHP <= 0; // 죽었는지 확인
 
+    public GameOverController gameOverController;
+    public bool isPlayer;
+
     void Start()
     {
         currentHP = maxHP;
@@ -29,7 +32,7 @@ public class Health : MonoBehaviour
             Die();
     }
 
-    void UpdateBar()
+    public void UpdateBar()
     {
         if (hpBar != null)
             hpBar.value = (float)currentHP / maxHP;
@@ -42,5 +45,18 @@ public class Health : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} 사망!");
         //gameObject.SetActive(false);
+
+        if (isPlayer)   // 플레이어가 죽었다면
+        {
+            if (gameOverController != null)
+                gameOverController.ShowGameOver();   // ← GameOver 호출
+            else
+                Debug.LogError("GameOverController 연결 안됨!");
+        }
+    }
+    public void ResetHealth()
+    {
+        currentHP = maxHP;
+        UpdateBar();
     }
 }
