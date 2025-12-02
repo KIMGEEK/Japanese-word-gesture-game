@@ -30,14 +30,28 @@ public class BattleController : MonoBehaviour
     IEnumerator PlayerAttackRoutine()
     {
         busy = true;
+
+        // 1) 플레이어 공격 모션
         yield return StartCoroutine(playerAnim.PlayAttack());
+
+        // 2) 몬스터 데미지
         monsterHealth.TakeDamage(100);
 
-        if (monsterHealth.IsDead)
+        // 3) 몬스터 피격 연출 (죽었더라도 한 번 튕겼다가 쓰러지게)
+        if (!monsterHealth.IsDead)
         {
+            yield return StartCoroutine(monsterAnim.PlayHit());
+            busy = false;
+            yield break;
+        }
+        else
+        {
+            // 죽는 경우: 살짝 피격 모션 + 사망 모션
+            yield return StartCoroutine(monsterAnim.PlayHit());
             monsterAnim.PlayDead();
             Debug.Log("몬스터 사망!");
             quizManager.OnLevelClear();
+
             if (clearController != null)
                 clearController.ShowClear();
             else
@@ -46,10 +60,8 @@ public class BattleController : MonoBehaviour
             busy = false;
             yield break;
         }
-
-        busy = false;
     }
-
+    
     public void MonsterAttack()
     {
         if (!busy)
@@ -59,28 +71,35 @@ public class BattleController : MonoBehaviour
     IEnumerator MonsterAttackRoutine()
     {
         busy = true;
+
+        // 1) 몬스터 공격 모션
         yield return StartCoroutine(monsterAnim.PlayAttack());
+
+        // 2) 플레이어 데미지
         playerHealth.TakeDamage(100);
 
-        if (playerHealth.IsDead)
+        // 3) 플레이어 피격 연출
+        if (!playerHealth.IsDead)
+        {
+            yield return StartCoroutine(playerAnim.PlayHit());
+            busy = false;
+            yield break;
+        }
+        else
         {
             playerAnim.PlayDead();
-            Debug.Log("플레이어 사망!");
 
-            if (playerHealth.gameOverController != null)
+            if (playerHealth.isPlayer)
             {
-                playerHealth.gameOverController.ShowGameOver();
-            }
-            else
-            {
-                Debug.LogError("GameOverController 연결 안 됨!");
+                if (playerHealth.gameOverController != null)
+                    playerHealth.gameOverController.ShowGameOver();
+                else
+                    Debug.LogError("GameOverController 연결 안 됨!");
             }
 
             busy = false;
             yield break;
         }
-
-        busy = false;
     }
 
     public void ResetMonster()

@@ -46,22 +46,15 @@ public class Health : MonoBehaviour
             hpText.text = $"{currentHP} / {maxHP}";
     }
 
-    void Die()
-    {
-        Debug.Log($"{gameObject.name} »ç¸Á!");
-        //gameObject.SetActive(false);
-
-        if (isPlayer)   // ÇÃ·¹ÀÌ¾î°¡ Á×¾ú´Ù¸é
-        {
-            if (gameOverController != null)
-                gameOverController.ShowGameOver();   // ¡ç GameOver È£Ãâ
-            else
-                Debug.LogError("GameOverController ¿¬°á ¾ÈµÊ!");
-        }
-    }
     public void ResetHealth()
     {
         currentHP = maxHP;
         UpdateBar();
+    }
+
+
+    void Die()
+    {
+        Debug.Log($"{gameObject.name} »ç¸Á!");
     }
 }

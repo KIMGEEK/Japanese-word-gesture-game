@@ -5,6 +5,8 @@ public class MagicCircleInput : MonoBehaviour
 {
     private List<string> buffer = new();
 
+
+
     public void AddLetter(string letter)
     {
         buffer.Add(letter);

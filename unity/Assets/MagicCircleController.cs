@@ -15,11 +15,20 @@ public class MagicCircleController : MonoBehaviour
     [Header("빛줄기 라인")]
     public LineRenderer lineRenderer;
 
+    [Header("선택 이펙트 설정")]
+    public float highlightInTime = 0.12f;
+    public float highlightStayTime = 1f;
+    public float highlightOutTime = 0.15f;
+    public float highlightScale = 1.3f;
+    public Color highlightColor = new Color(1f, 1f, 1f, 0.6f);
+
     private List<Vector3> selectedPositions = new List<Vector3>();
     private string lastLetter = ""; // 중복 방지용
 
     public MagicCircleInput input;  // 추가
     public int LettersCount => letters.Count;
+    private LetterItem currentHighlighted = null;
+
 
     // 선택방식으로 하다가 일단 안 씀
     //public void OnSelectLetter(string letter)
@@ -33,6 +42,16 @@ public class MagicCircleController : MonoBehaviour
     {
         if (lineRenderer != null)
             lineRenderer.positionCount = 0;
+
+        // 하이라이트 초기화
+        foreach (var item in letters)
+        {
+            if (item.highlightImage != null)
+            {
+                item.highlightImage.gameObject.SetActive(false);
+            }
+        }
+
     }
 
     void Update()
@@ -58,6 +77,10 @@ public class MagicCircleController : MonoBehaviour
                 var tmp = letters[i].rect.GetComponentInChildren<TextMeshProUGUI>();
                 if (tmp != null)
                     tmp.text = "";
+
+                // 글자 초기화 시 하이라이트 꺼짐 초기화
+                if (letters[i].highlightImage != null)
+                    letters[i].highlightImage.gameObject.SetActive(false);
             }
             return;
         }
@@ -94,19 +117,28 @@ public class MagicCircleController : MonoBehaviour
     void TrySelectLetter(LetterItem item)
     {
         if (isLocked)
-            return;  // 잠금 상태면 아무것도 안 함
+            return;
 
-        if (lastLetter == item.letter)
-            return;  // 같은 글자 연속 선택 방지
+        // 같은 글자면 또 실행하지 않음
+        if (currentHighlighted == item)
+            return;
 
+        // 이전 선택된 글자가 있으면 하이라이트 제거
+        if (currentHighlighted != null && currentHighlighted.highlightImage != null)
+            currentHighlighted.highlightImage.gameObject.SetActive(false);
+
+        // 지금 선택된 글자에 하이라이트 표시
+        if (item.highlightImage != null)
+            item.highlightImage.gameObject.SetActive(true);
+
+        currentHighlighted = item;
+
+        // 선택된 글자 처리
         lastLetter = item.letter;
-
-        Debug.Log($"선택됨: {item.letter}");
-
         AddLinePoint(item.rect);
-
         input.AddLetter(item.letter);
-        HighlightLetter(item.rect);
+
+        Debug.Log("선택됨: " + item.letter);
     }
 
     void AddLinePoint(RectTransform rect)
@@ -128,8 +160,16 @@ public class MagicCircleController : MonoBehaviour
 
     public void ResetSelectionLock()
     {
-        lastLetter = "";     // 이번 문제에서 사용된 마지막 글자 초기화
-        isLocked = false;    // 잠금 해제
+        lastLetter = "";
+        isLocked = false;
+
+        foreach (var item in letters)
+        {
+            if (item.highlightImage != null)
+                item.highlightImage.gameObject.SetActive(false);
+        }
+
+        currentHighlighted = null;
     }
 
     public void LockForSeconds(float sec)
@@ -145,50 +185,79 @@ public class MagicCircleController : MonoBehaviour
         isLocked = false;
     }
 
-    void HighlightLetter(RectTransform rect)
-    {
-        var circle = rect.Find("HighlightCircle");
-        if (circle == null) return;
-
-        var img = circle.GetComponent<Image>();
-        if (img == null) return;
-
-        StartCoroutine(PlayCircleEffect(img));
-    }
-
-    IEnumerator PlayCircleEffect(Image img)
+    IEnumerator PlayHighlightEffect(Image img)
     {
         img.gameObject.SetActive(true);
-        img.color = new Color(1, 1, 1, 0);
 
-        // scale up 0 → 1.2
+        // 초기 상태
+        img.color = new Color(highlightColor.r, highlightColor.g, highlightColor.b, 0f);
         img.rectTransform.localScale = Vector3.zero;
 
-        float t = 0;
-        while (t < 1)
-        {
-            t += Time.deltaTime * 2f;
+        float t = 0f;
 
-            img.rectTransform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 1.2f, t);
-            img.color = new Color(1, 1, 1, Mathf.Lerp(0, 1, t));
+        // 1) 등장 (scale 0 → highlightScale, alpha 0 → highlightColor.a)
+        while (t < 1f)
+        {
+            t += Time.deltaTime / highlightInTime;
+            float k = Mathf.Clamp01(t);
+
+            img.rectTransform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * highlightScale, k);
+            img.color = new Color(
+                highlightColor.r,
+                highlightColor.g,
+                highlightColor.b,
+                Mathf.Lerp(0f, highlightColor.a, k)
+            );
 
             yield return null;
         }
 
-        yield return new WaitForSeconds(0.1f);
+        // 2) 잠깐 유지
+        yield return new WaitForSeconds(highlightStayTime);
 
-        // fade out
-        t = 0;
-        while (t < 1)
+        // 3) 사라지기 (scale 유지, alpha → 0)
+        t = 0f;
+        while (t < 1f)
         {
-            t += Time.deltaTime * 2f;
-            img.color = new Color(1, 1, 1, Mathf.Lerp(1, 0, t));
+            t += Time.deltaTime / highlightOutTime;
+            float k = Mathf.Clamp01(t);
+
+            img.color = new Color(
+                highlightColor.r,
+                highlightColor.g,
+                highlightColor.b,
+                Mathf.Lerp(highlightColor.a, 0f, k)
+            );
+
             yield return null;
         }
 
         img.gameObject.SetActive(false);
     }
 
+    public void CancelAllSelection()
+    {
+        // 1) 라인 초기화
+        selectedPositions.Clear();
+        lineRenderer.positionCount = 0;
+
+        // 2) 입력창 초기화
+        input.ClearInput();   // MagicCircleInput 내부에 있어야 함
+
+        // 3) 모든 하이라이트 끄기
+        foreach (var item in letters)
+        {
+            if (item.highlightImage != null)
+                item.highlightImage.gameObject.SetActive(false);
+        }
+
+        // 4) 선택 상태 초기화
+        lastLetter = "";
+        currentHighlighted = null;
+        isLocked = false;
+
+        Debug.Log("전체 선택 취소됨");
+    }
 }
 
 [System.Serializable]
@@ -196,4 +265,6 @@ public class LetterItem
 {
     public string letter;
     public RectTransform rect;
+
+    public UnityEngine.UI.Image highlightImage;
 }
