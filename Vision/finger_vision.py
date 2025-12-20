@@ -4,7 +4,12 @@ import mediapipe as mp
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 360)
+cap.set(cv2.CAP_PROP_FPS, 30)
+
 canvas = None
 
 def dist(a, b):
@@ -18,7 +23,7 @@ with mp_hands.Hands( # 초기 설정이고 실제 성능 혹은 인식 개수 �
 ) as hands:
     prev = None
     drawing = False
-    while True:
+    for _ in range(15):
         ok, frame = cap.read()
         if not ok: break
         frame = cv2.flip(frame, 1)

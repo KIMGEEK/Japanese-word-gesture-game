@@ -129,7 +129,7 @@ async def websocket_endpoint(websocket: WebSocket):
                     data_to_send = {
                         "x": index_finger_tip.x,
                         "y": index_finger_tip.y
-                    }
+                    } 
             
             # 4. 데이터 전송 (손이 감지되었을 때만)
             if data_to_send:

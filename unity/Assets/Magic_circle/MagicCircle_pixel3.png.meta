@@ -1,0 +1,1352 @@
+fileFormatVersion: 2
+guid: 6c3126cdfbec1fd4b994977f6fcf1d92
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8794110684031832346
+    second: MagicCircle_pixel3_0
+  - first:
+      213: -5496993134307967588
+    second: MagicCircle_pixel3_1
+  - first:
+      213: 1600980327284607701
+    second: MagicCircle_pixel3_2
+  - first:
+      213: -7237979252011607998
+    second: MagicCircle_pixel3_3
+  - first:
+      213: 520820518650241212
+    second: MagicCircle_pixel3_4
+  - first:
+      213: -2347232674148040502
+    second: MagicCircle_pixel3_5
+  - first:
+      213: 8027301089931204718
+    second: MagicCircle_pixel3_6
+  - first:
+      213: 2119022699802167671
+    second: MagicCircle_pixel3_7
+  - first:
+      213: -2563975025262390715
+    second: MagicCircle_pixel3_8
+  - first:
+      213: 2202235443752394659
+    second: MagicCircle_pixel3_9
+  - first:
+      213: 5179627048585129228
+    second: MagicCircle_pixel3_10
+  - first:
+      213: -849525032721758594
+    second: MagicCircle_pixel3_11
+  - first:
+      213: 8424951360358521998
+    second: MagicCircle_pixel3_12
+  - first:
+      213: 1618405851530734322
+    second: MagicCircle_pixel3_13
+  - first:
+      213: -3423974590657887557
+    second: MagicCircle_pixel3_14
+  - first:
+      213: -1130798155605594305
+    second: MagicCircle_pixel3_15
+  - first:
+      213: 2813929895108222401
+    second: MagicCircle_pixel3_16
+  - first:
+      213: -354937167756002228
+    second: MagicCircle_pixel3_17
+  - first:
+      213: -4867941354604952446
+    second: MagicCircle_pixel3_18
+  - first:
+      213: 3135292449141335193
+    second: MagicCircle_pixel3_19
+  - first:
+      213: -5912514103484140335
+    second: MagicCircle_pixel3_20
+  - first:
+      213: -2619025771135504404
+    second: MagicCircle_pixel3_21
+  - first:
+      213: 5928108886841412961
+    second: MagicCircle_pixel3_22
+  - first:
+      213: 5927648292527204300
+    second: MagicCircle_pixel3_23
+  - first:
+      213: -8628821315717087858
+    second: MagicCircle_pixel3_24
+  - first:
+      213: -3152429172109482292
+    second: MagicCircle_pixel3_25
+  - first:
+      213: 5243572067415157834
+    second: MagicCircle_pixel3_26
+  - first:
+      213: 2403357326588354092
+    second: MagicCircle_pixel3_27
+  - first:
+      213: 2284813700145017321
+    second: MagicCircle_pixel3_28
+  - first:
+      213: -2552584208115718381
+    second: MagicCircle_pixel3_29
+  - first:
+      213: -528289566688160230
+    second: MagicCircle_pixel3_30
+  - first:
+      213: -2373187212382727497
+    second: MagicCircle_pixel3_31
+  - first:
+      213: 1123095527947438651
+    second: MagicCircle_pixel3_32
+  - first:
+      213: -2101747375006720209
+    second: MagicCircle_pixel3_33
+  - first:
+      213: 9101115332651627772
+    second: MagicCircle_pixel3_34
+  - first:
+      213: 4559822524736361594
+    second: MagicCircle_pixel3_35
+  - first:
+      213: 981326011303284403
+    second: MagicCircle_pixel3_36
+  - first:
+      213: 4983104976150600345
+    second: MagicCircle_pixel3_37
+  - first:
+      213: -5835720971046849234
+    second: MagicCircle_pixel3_38
+  - first:
+      213: -2628811973863461786
+    second: MagicCircle_pixel3_39
+  - first:
+      213: -1013634491868100296
+    second: MagicCircle_pixel3_40
+  - first:
+      213: 4422941143963631875
+    second: MagicCircle_pixel3_41
+  - first:
+      213: -4694247988796861566
+    second: MagicCircle_pixel3_42
+  - first:
+      213: -7509717078390309
+    second: MagicCircle_pixel3_43
+  - first:
+      213: 8855075607781077681
+    second: MagicCircle_pixel3_44
+  - first:
+      213: 719646012151145830
+    second: MagicCircle_pixel3_45
+  - first:
+      213: 7580708617986816796
+    second: MagicCircle_pixel3_46
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 2
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_0
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 523
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6eea0d21dea05f580800000000000000
+      internalID: -8794110684031832346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_1
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 513
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9dffc06ed1c6b3b0800000000000000
+      internalID: -5496993134307967588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_2
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 521
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5da00341023d73610800000000000000
+      internalID: 1600980327284607701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_3
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 527
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 248533008388d8b90800000000000000
+      internalID: -7237979252011607998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_4
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 521
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb0e1e590835a3700800000000000000
+      internalID: 520820518650241212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_5
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 514
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac0473ca154fc6fd0800000000000000
+      internalID: -2347232674148040502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_6
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 87
+        width: 427
+        height: 425
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6894729fc3b66f60800000000000000
+      internalID: 8027301089931204718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_7
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 503
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77982bc1be7486d10800000000000000
+      internalID: 2119022699802167671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_8
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 511
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 542134e8c4eea6cd0800000000000000
+      internalID: -2563975025262390715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_9
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 503
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3afd2a8d779ef8e10800000000000000
+      internalID: 2202235443752394659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_10
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 409
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0debeb9b5bb1e740800000000000000
+      internalID: 5179627048585129228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_11
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 429
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7641d4db71e534f0800000000000000
+      internalID: -849525032721758594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_12
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 398
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8c1d1cff907be470800000000000000
+      internalID: 8424951360358521998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_13
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 398
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fa27ea1c8bb57610800000000000000
+      internalID: 1618405851530734322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_14
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 397
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb28fd330499b70d0800000000000000
+      internalID: -3423974590657887557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_15
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 374
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3f267691199e40f0800000000000000
+      internalID: -1130798155605594305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_16
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 374
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cd17cca4561d0720800000000000000
+      internalID: 2813929895108222401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_17
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 347
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4cf156c682031bf0800000000000000
+      internalID: -354937167756002228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_18
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 347
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28486532129917cb0800000000000000
+      internalID: -4867941354604952446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_19
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 315
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 994a80afedbc28b20800000000000000
+      internalID: 3135292449141335193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_20
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 314
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d4375cafb782fda0800000000000000
+      internalID: -5912514103484140335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_21
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 287
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cefefd5ffe957abd0800000000000000
+      internalID: -2619025771135504404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_22
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 289
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16dc406cf9fd44250800000000000000
+      internalID: 5928108886841412961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_23
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 289
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc7e88d47bc334250800000000000000
+      internalID: 5927648292527204300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_24
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 287
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8d3d561bb4404880800000000000000
+      internalID: -8628821315717087858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_25
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 259
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc6e5d8ce525044d0800000000000000
+      internalID: -3152429172109482292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_26
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 259
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4ce0708309e4c840800000000000000
+      internalID: 5243572067415157834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_27
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 227
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2e91a741c07a5120800000000000000
+      internalID: 2403357326588354092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_28
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 227
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e1f61f64f945bf10800000000000000
+      internalID: 2284813700145017321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_29
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 198
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 317adf7df26639cd0800000000000000
+      internalID: -2552584208115718381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_30
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 198
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a16d10720732ba8f0800000000000000
+      internalID: -528289566688160230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_31
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 176
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b29d64ddceb01fd0800000000000000
+      internalID: -2373187212382727497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_32
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 175
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3a0328ae69069f00800000000000000
+      internalID: 1123095527947438651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_33
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 110
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2f5d11e5e715d2e0800000000000000
+      internalID: -2101747375006720209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_34
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 98
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf4bf8edc28ad4e70800000000000000
+      internalID: 9101115332651627772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_35
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 97
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a745cb16d6eb74f30800000000000000
+      internalID: 4559822524736361594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_36
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 82
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3be4598dece5e9d00800000000000000
+      internalID: 981326011303284403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_37
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 76
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99a10fdf29b872540800000000000000
+      internalID: 4983104976150600345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_38
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 66
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e25747022ba530fa0800000000000000
+      internalID: -5835720971046849234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_39
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 73
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66c23941075948bd0800000000000000
+      internalID: -2628811973863461786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_40
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 66
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8394e14dcc8dee1f0800000000000000
+      internalID: -1013634491868100296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_41
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 76
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30189646981716d30800000000000000
+      internalID: 4422941143963631875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_42
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 80
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 283db2c435eaadeb0800000000000000
+      internalID: -4694247988796861566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_43
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 59
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd9cd2db3f155eff0800000000000000
+      internalID: -7509717078390309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_44
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 52
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b2740d595c83ea70800000000000000
+      internalID: 8855075607781077681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_45
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 59
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 665ab463c32bcf900800000000000000
+      internalID: 719646012151145830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicCircle_pixel3_46
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 43
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1bb8d0e256143960800000000000000
+      internalID: 7580708617986816796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MagicCircle_pixel3_0: -8794110684031832346
+      MagicCircle_pixel3_1: -5496993134307967588
+      MagicCircle_pixel3_10: 5179627048585129228
+      MagicCircle_pixel3_11: -849525032721758594
+      MagicCircle_pixel3_12: 8424951360358521998
+      MagicCircle_pixel3_13: 1618405851530734322
+      MagicCircle_pixel3_14: -3423974590657887557
+      MagicCircle_pixel3_15: -1130798155605594305
+      MagicCircle_pixel3_16: 2813929895108222401
+      MagicCircle_pixel3_17: -354937167756002228
+      MagicCircle_pixel3_18: -4867941354604952446
+      MagicCircle_pixel3_19: 3135292449141335193
+      MagicCircle_pixel3_2: 1600980327284607701
+      MagicCircle_pixel3_20: -5912514103484140335
+      MagicCircle_pixel3_21: -2619025771135504404
+      MagicCircle_pixel3_22: 5928108886841412961
+      MagicCircle_pixel3_23: 5927648292527204300
+      MagicCircle_pixel3_24: -8628821315717087858
+      MagicCircle_pixel3_25: -3152429172109482292
+      MagicCircle_pixel3_26: 5243572067415157834
+      MagicCircle_pixel3_27: 2403357326588354092
+      MagicCircle_pixel3_28: 2284813700145017321
+      MagicCircle_pixel3_29: -2552584208115718381
+      MagicCircle_pixel3_3: -7237979252011607998
+      MagicCircle_pixel3_30: -528289566688160230
+      MagicCircle_pixel3_31: -2373187212382727497
+      MagicCircle_pixel3_32: 1123095527947438651
+      MagicCircle_pixel3_33: -2101747375006720209
+      MagicCircle_pixel3_34: 9101115332651627772
+      MagicCircle_pixel3_35: 4559822524736361594
+      MagicCircle_pixel3_36: 981326011303284403
+      MagicCircle_pixel3_37: 4983104976150600345
+      MagicCircle_pixel3_38: -5835720971046849234
+      MagicCircle_pixel3_39: -2628811973863461786
+      MagicCircle_pixel3_4: 520820518650241212
+      MagicCircle_pixel3_40: -1013634491868100296
+      MagicCircle_pixel3_41: 4422941143963631875
+      MagicCircle_pixel3_42: -4694247988796861566
+      MagicCircle_pixel3_43: -7509717078390309
+      MagicCircle_pixel3_44: 8855075607781077681
+      MagicCircle_pixel3_45: 719646012151145830
+      MagicCircle_pixel3_46: 7580708617986816796
+      MagicCircle_pixel3_5: -2347232674148040502
+      MagicCircle_pixel3_6: 8027301089931204718
+      MagicCircle_pixel3_7: 2119022699802167671
+      MagicCircle_pixel3_8: -2563975025262390715
+      MagicCircle_pixel3_9: 2202235443752394659
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
