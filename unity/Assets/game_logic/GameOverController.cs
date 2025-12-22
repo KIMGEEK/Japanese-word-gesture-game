@@ -7,12 +7,13 @@ public class GameOverController : MonoBehaviour
     [Header("게임 오버 패널")]
     public GameObject gameOverPanel;
 
-    private void Start()
+    void Start()
     {
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
     }
 
+    // 게임 오버 패널 표시
     public void ShowGameOver()
     {
         if (gameOverPanel != null)
@@ -21,6 +22,7 @@ public class GameOverController : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    // 재도전 버튼
     public void Retry()
     {
         Time.timeScale = 1f;
@@ -29,13 +31,14 @@ public class GameOverController : MonoBehaviour
 
     private IEnumerator RetryRoutine()
     {
+        // 오버 패널 숨김
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
 
-        // ✅ WebSocket 오브젝트를 Destroy/Close 하지 않습니다.
-        // DontDestroyOnLoad 매니저가 씬 로드 시 EnsureConnected + Reset 브로드캐스트를 합니다.
-        var scene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(scene);
+        // ✅ WebSocket은 닫거나 파괴하지 않는다. HandInputManager가 자동으로 재연결한다.
+        // 씬만 다시 로드한다.
+        var currentScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentScene);
 
         yield break;
     }
