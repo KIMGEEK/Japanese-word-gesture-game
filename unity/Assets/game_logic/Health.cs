@@ -1,60 +1,94 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
+/// <summary>
+/// 목숨(하트) 기반 Health.
+/// 기존 HP바 코드와의 호환을 위해 UpdateBar()를 래퍼로 유지.
+/// </summary>
 public class Health : MonoBehaviour
 {
-    public int maxHP = 300;
-    public int currentHP = 300;
+    [Tooltip("최대 목숨 수 (하트 개수)")]
+    public int maxLives = 3;
 
-    public Slider hpBar; // UI HP�� ����
-    public TextMeshProUGUI hpText; // ���� ǥ��
+    [HideInInspector]
+    public int currentLives = 3;
 
-    public bool IsDead => currentHP <= 0; // �׾����� Ȯ��
+    [Tooltip("하트 Image 배열(왼쪽부터 0,1,2...)")]
+    public Image[] heartImages;
+
+    [Tooltip("활성 하트 스프라이트")]
+    public Sprite activeHeart;
+
+    [Tooltip("비활성 하트 스프라이트")]
+    public Sprite inactiveHeart;
 
     public GameOverController gameOverController;
     public bool isPlayer;
 
-    void Start()
+    public bool IsDead => currentLives <= 0;
+
+    private void Start()
     {
-        currentHP = maxHP;
-        UpdateBar();
+        currentLives = GetClampedMaxLives();
+        UpdateHearts();
     }
 
     public void TakeDamage(int amount)
     {
-        currentHP -= amount;
+        if (IsDead) return;
 
-        if (currentHP <= 0)
-        {
-            currentHP = 0;
-            UpdateBar();
+        // 하트 시스템: 호출 1번당 1목숨 감소 (amount는 무시)
+        currentLives = Mathf.Max(0, currentLives - 1);
+
+        UpdateHearts();
+
+        if (IsDead)
             Die();
-
-            return;
-        }
-
-        UpdateBar();
-    }
-
-    public void UpdateBar()
-    {
-        if (hpBar != null)
-            hpBar.value = (float)currentHP / maxHP;
-
-        if (hpText != null)
-            hpText.text = $"{currentHP} / {maxHP}";
     }
 
     public void ResetHealth()
     {
-        currentHP = maxHP;
-        UpdateBar();
+        currentLives = GetClampedMaxLives();
+        UpdateHearts();
     }
 
-
-    void Die()
+    // ✅ 기존 코드(BattleController/GameClearController 등) 호환용
+    public void UpdateBar()
     {
-        Debug.Log($"{gameObject.name} ���!");
+        UpdateHearts();
+    }
+
+    public void UpdateHearts()
+    {
+        if (heartImages == null) return;
+
+        for (int i = 0; i < heartImages.Length; i++)
+        {
+            var img = heartImages[i];
+            if (img == null) continue;
+
+            bool on = i < currentLives;
+            img.enabled = true;
+            img.sprite = on ? activeHeart : inactiveHeart;
+        }
+    }
+
+    private int GetClampedMaxLives()
+    {
+        int limit = (heartImages != null && heartImages.Length > 0) ? heartImages.Length : maxLives;
+        return Mathf.Clamp(maxLives, 0, limit);
+    }
+
+    private void Die()
+    {
+        Debug.Log($"{gameObject.name} 사망!");
+
+        if (isPlayer)
+        {
+            if (gameOverController != null)
+                gameOverController.ShowGameOver(); // ✅ 여기!
+            else
+                Debug.LogError("GameOverController 연결 안 됨!");
+        }
     }
 }

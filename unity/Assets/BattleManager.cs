@@ -6,8 +6,8 @@ public class BattleManager : MonoBehaviour
 
     private string currentWord = "";
 
-    public BattleController battleController;  // ÀüÅõ ´ã´ç ½ºÅ©¸³Æ® ¿¬°á
-    public string answerWord = "ª¢ª¤ª¨ªªª¦";   // ¿¹½Ã Á¤´ä(¿øÇÏ´Â ´Ü¾î·Î ±³Ã¼)
+    public BattleController battleController;  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+    public string answerWord = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ü¾ï¿½ï¿½ ï¿½ï¿½Ã¼)
 
     void Awake()
     {
@@ -17,9 +17,9 @@ public class BattleManager : MonoBehaviour
     public void AddLetter(string letter)
     {
         currentWord += letter;
-        Debug.Log("ÇöÀç ´Ü¾î: " + currentWord);
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½Ü¾ï¿½: " + currentWord);
 
-        // ±ÛÀÚ 5°³°¡ Ã¡À» ¶§ ÀÚµ¿ ÆÇÁ¤
+        // ï¿½ï¿½ï¿½ï¿½ 5ï¿½ï¿½ï¿½ï¿½ Ã¡ï¿½ï¿½ ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½
         if (currentWord.Length >= answerWord.Length)
         {
             CheckAnswer();
@@ -28,11 +28,11 @@ public class BattleManager : MonoBehaviour
 
     void CheckAnswer()
     {
-        var mc = FindObjectOfType<MagicCircleController>();
+        var mc = Object.FindFirstObjectByType<MagicCircleController>();
 
         if (currentWord == answerWord)
         {
-            Debug.Log("Á¤´ä! °ø°Ý ½ÇÇà");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             battleController.PlayerAttack();
 
             if (mc != null)
@@ -40,20 +40,20 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("¿À´ä! ÀûÀÌ ¹Ý°Ý!");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½!");
 
-            // ¸ó½ºÅÍ °ø°Ý
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             battleController.MonsterAttack();
 
-            // 3ÃÊ°£ ¼±ÅÃ ±ÝÁö
+            // 3ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             if (mc != null)
                 mc.LockForSeconds(3f);
         }
 
-        // ´ÙÀ½ ¹®Á¦¸¦ À§ÇØ ÃÊ±âÈ­
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         currentWord = "";
 
-        // ¿À´ä ½Ã ¼± ÃÊ±âÈ­
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê±ï¿½È­
         if (mc != null) mc.ClearLines();
     }
 
