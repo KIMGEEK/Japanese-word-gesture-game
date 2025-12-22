@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class WordApiTest : MonoBehaviour
 {
@@ -10,13 +10,13 @@ public class WordApiTest : MonoBehaviour
         {
             if (words == null)
             {
-                Debug.Log("´Ü¾î ºÒ·¯¿À±â ½ÇÆÐ");
+                Debug.Log("ë‹¨ì–´ ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨");
                 return;
             }
 
             foreach (var w in words)
             {
-                Debug.Log($"[{w.id}] {w.japanese} - {w.korean}");
+                Debug.Log($"[{w.id}] {w.japanese} - {w.korean} / level={w.level} / candidates={w.candidates}");
             }
         }));
     }

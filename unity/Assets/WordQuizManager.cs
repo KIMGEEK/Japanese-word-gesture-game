@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -9,7 +9,7 @@ public class WordQuizManager : MonoBehaviour
     public MagicCircleInput magicInput;
     public static int targetLevel = 1;
 
-    public BattleController battleController;   // ¡ç Á÷Á¢ ¿¬°á
+    public BattleController battleController;   // â† ì§ì ‘ ì—°ê²°
     public MagicCircleController magicCircleController;
     public TextMeshProUGUI meaningText;
 
@@ -22,7 +22,7 @@ public class WordQuizManager : MonoBehaviour
         {
             if (words == null || words.Count == 0)
             {
-                Debug.LogError("´Ü¾î¸¦ ºÒ·¯¿ÀÁö ¸øÇß½À´Ï´Ù.");
+                Debug.LogError("ë‹¨ì–´ë¥¼ ë¶ˆëŸ¬ì˜¤ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
                 return;
             }
 
@@ -33,44 +33,36 @@ public class WordQuizManager : MonoBehaviour
 
     void NextWord()
     {
-        //  ¸ğµç ¹®Á¦ ³¡³µÀ» ¶§µµ UI°¡ ¹İµå½Ã ÃÊ±âÈ­µÇµµ·Ï Ã³¸®
         if (wordQueue == null || wordQueue.Count == 0)
         {
-            Debug.Log($"·¹º§ {targetLevel}ÀÇ ´Ü¾î ÄûÁî ¿Ï·á!");
-
+            Debug.Log($"ë ˆë²¨ {targetLevel}ì˜ ë‹¨ì–´ í€´ì¦ˆ ì™„ë£Œ!");
             return;
         }
-
 
         current = wordQueue.Dequeue();
         meaningText.text = current.korean;
 
-        string[] answer = SplitToCharacters(current.japanese);
-        string[] choices = BuildLetterChoices(answer);
+        // âœ… ì„œë²„ì—ì„œ ë‚´ë ¤ì¤€ í›„ë³´êµ° ì‚¬ìš©
+        string[] choices = GetCandidatesOrFallback(current);
 
-        //  UI ½½·Ô °³¼ö°¡ ÃæºĞÇÑÁö °Ë»ç (IndexOutOfRange ¹æÁö)
+        // UI ìŠ¬ë¡¯ ê°œìˆ˜ ê²€ì‚¬
         if (choices.Length > magicCircleController.LettersCount)
         {
-            Debug.LogError($"´Ü¾î '{current.japanese}'ÀÇ ±ÛÀÚ ¼ö°¡ UI ½½·Ôº¸´Ù ¸¹½À´Ï´Ù." +
-                           $"({choices.Length} > {magicCircleController.LettersCount})");
+            Debug.LogError($"í›„ë³´êµ° ìˆ˜ê°€ UI ìŠ¬ë¡¯ë³´ë‹¤ ë§ìŠµë‹ˆë‹¤. ({choices.Length} > {magicCircleController.LettersCount})");
         }
 
-        //  ÃÊ±âÈ­ ¼ø¼­ ¸Å¿ì Áß¿ä
+        // ì´ˆê¸°í™” ìˆœì„œ
         magicCircleController.ResetSelectionLock();
         magicCircleController.ClearLines();
         magicInput.ClearInput();
 
-        //  ±ÛÀÚ¸¦ UI¿¡ Àû¿ë
+        // ê¸€ìë¥¼ UIì— ì ìš©
         magicCircleController.SetLetters(choices);
     }
 
     public void OnLevelClear()
     {
-        // ¸ó½ºÅÍ°¡ Á×À¸¸é ¡æ ÀÌ ·¹º§Àº ³¡³­ °ÍÀÌ´Ù
-        Debug.Log($"·¹º§ {targetLevel} Å¬¸®¾î (¸ó½ºÅÍ Ã³Ä¡)");
-
-        // ¾Æ·¡´Â GameClearController ¹öÆ°ÀÌ ´­·ÈÀ» ¶§ È£ÃâÇÏ´Â ±¸Á¶
-        // Áï NextLevelInternal()ÀÌ ½ÇÇàµÇ°Ô ÁØºñ¸¸ ÇÔ
+        Debug.Log($"ë ˆë²¨ {targetLevel} í´ë¦¬ì–´ (ëª¬ìŠ¤í„° ì²˜ì¹˜)");
     }
 
     public void OnSubmit()
@@ -86,8 +78,6 @@ public class WordQuizManager : MonoBehaviour
         if (correct)
         {
             battleController.PlayerAttack();
-
-            // ÀûÀÌ Á×¾úÀ¸¸é ÀÌÈÄ ÁøÇà Áß´Ü
             if (battleController.monsterHealth.IsDead)
                 yield break;
         }
@@ -102,38 +92,13 @@ public class WordQuizManager : MonoBehaviour
         NextWord();
     }
 
-    string[] BuildLetterChoices(string[] answer)
-    {
-        List<string> result = new List<string>(answer);
-
-        // ºÎÁ·ÇÑ ±ÛÀÚ ¼ö ¸¸Å­ ·£´ı ¹®ÀÚ Ãß°¡
-        string jpPool = "ª¢ª¤ª¦ª¨ªªª«ª­ª¯ª±ª³ªµª·ª¹ª»ª½ª¿ªÁªÄªÆªÈªÊªËªÌªÍªÎªÏªÒªÕªØªÛªŞªßªàªáªâ";
-
-        System.Random rng = new System.Random();
-
-        while (result.Count < 5)
-        {
-            int idx = rng.Next(jpPool.Length);
-            result.Add(jpPool[idx].ToString());
-        }
-
-        // UI°¡ ³Ê¹« ÇÑÂÊÀ¸·Î Á¤´ä ¸ô¸®¸é ¾È µÇ¹Ç·Î shuffle
-        for (int i = 0; i < result.Count; i++)
-        {
-            int r = rng.Next(i, result.Count);
-            (result[i], result[r]) = (result[r], result[i]);
-        }
-
-        return result.ToArray();
-    }
-
     public IEnumerator LoadNextLevelInternal()
     {
         targetLevel++;
 
         if (targetLevel > 3)
         {
-            Debug.Log("¸ğµç ·¹º§ Á¾·á!");
+            Debug.Log("ëª¨ë“  ë ˆë²¨ ì¢…ë£Œ!");
             yield break;
         }
 
@@ -141,7 +106,7 @@ public class WordQuizManager : MonoBehaviour
         {
             if (words == null || words.Count == 0)
             {
-                Debug.LogError("´Ü¾î ºÒ·¯¿À±â ½ÇÆĞ");
+                Debug.LogError("ë‹¨ì–´ ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨");
                 return;
             }
 
@@ -150,12 +115,89 @@ public class WordQuizManager : MonoBehaviour
         }));
     }
 
+    // -------------------------
+    // candidates íŒŒì‹±/ê²€ì¦
+    // -------------------------
 
-    string[] SplitToCharacters(string text)
+    [System.Serializable]
+    private class StringArrayWrapper
     {
-        List<string> list = new List<string>();
-        foreach (var c in text)
-            list.Add(c.ToString());
-        return list.ToArray();
+        public string[] items;
+    }
+
+    private string[] GetCandidatesOrFallback(WordDto dto)
+    {
+        // dtoê°€ ì—†ìœ¼ë©´ ì•ˆì „í•˜ê²Œ fallback
+        if (dto == null)
+        {
+            Debug.LogWarning("[WordQuizManager] dtoê°€ nullì´ë¼ fallback ì‚¬ìš©");
+            return BuildFallbackChoices(null);
+        }
+
+        // 1) ì„œë²„ candidatesê°€ ë¹„ì–´ìˆìœ¼ë©´ fallback
+        if (dto.candidates == null || dto.candidates.Length == 0)
+        {
+            Debug.LogWarning($"[WordQuizManager] candidatesê°€ ë¹„ì–´ìˆìŒ: {dto.japanese}. fallback ì‚¬ìš©");
+            return BuildFallbackChoices(dto.japanese);
+        }
+
+        // 2) (ê¶Œì¥) í›„ë³´êµ°ì— ì •ë‹µ ê¸€ìë“¤ì´ ëª¨ë‘ í¬í•¨ë˜ëŠ”ì§€ ê²€ì¦
+        if (!AnswerCharsIncluded(dto.japanese, dto.candidates))
+        {
+            Debug.LogWarning($"[WordQuizManager] candidatesì— ì •ë‹µ ê¸€ìê°€ ì¶©ë¶„íˆ í¬í•¨ë˜ì§€ ì•ŠìŒ: {dto.japanese}. fallback ì‚¬ìš©");
+            return BuildFallbackChoices(dto.japanese);
+        }
+
+        // 3) ì •ìƒ ë°˜í™˜
+        return dto.candidates;
+    }
+
+
+    private bool AnswerCharsIncluded(string answer, string[] candidates)
+    {
+        if (string.IsNullOrEmpty(answer) || candidates == null) return false;
+
+        // ì •ë‹µì˜ ê° ê¸€ìê°€ candidates ì¤‘ í•˜ë‚˜ë¼ë„ í¬í•¨ë˜ëŠ”ì§€ ê²€ì‚¬
+        foreach (char c in answer)
+        {
+            string s = c.ToString();
+            bool found = false;
+            for (int i = 0; i < candidates.Length; i++)
+            {
+                if (candidates[i] == s) { found = true; break; }
+            }
+            if (!found) return false;
+        }
+        return true;
+    }
+
+    // ì„œë²„ candidatesê°€ ì—†ê±°ë‚˜ ê¹¨ì§„ ê²½ìš°ë¥¼ ëŒ€ë¹„í•œ ì•ˆì „ì¥ì¹˜(ê¸°ì¡´ ë¡œì§ "ì¶•ì†Œ ë²„ì „")
+    private string[] BuildFallbackChoices(string japanese)
+    {
+        // ì •ë‹µ ê¸€ìë“¤ + ëœë¤ìœ¼ë¡œ 5ê°œ ì±„ìš°ê¸°
+        List<string> result = new List<string>();
+        if (!string.IsNullOrEmpty(japanese))
+        {
+            foreach (char c in japanese)
+                result.Add(c.ToString());
+        }
+
+        string jpPool = "ã‚ã„ã†ãˆãŠã‹ããã‘ã“ã•ã—ã™ã›ããŸã¡ã¤ã¦ã¨ãªã«ã¬ã­ã®ã¯ã²ãµã¸ã»ã¾ã¿ã‚€ã‚ã‚‚ã‚„ã‚†ã‚ˆã‚‰ã‚Šã‚‹ã‚Œã‚ã‚ã‚’ã‚“";
+        System.Random rng = new System.Random();
+
+        while (result.Count < 5)
+        {
+            int idx = rng.Next(jpPool.Length);
+            result.Add(jpPool[idx].ToString());
+        }
+
+        // shuffle
+        for (int i = 0; i < result.Count; i++)
+        {
+            int r = rng.Next(i, result.Count);
+            (result[i], result[r]) = (result[r], result[i]);
+        }
+
+        return result.ToArray();
     }
 }

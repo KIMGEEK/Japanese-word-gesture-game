@@ -1,20 +1,27 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-// ¹é¿£µå¿¡¼­ ³»·Á¿À´Â ´Ü¾î DTO (JSON ÇÊµå ÀÌ¸§¿¡ ¸ÂÃç¾ß ÇÔ)
+/// <summary>
+/// ì„œë²„ì—ì„œ ë‚´ë ¤ì˜¤ëŠ” ë‹¨ì–´ DTO
+/// (JSON í•„ë“œ ì´ë¦„ê³¼ ë°˜ë“œì‹œ ì¼ì¹˜í•´ì•¼ í•¨)
+/// </summary>
 [Serializable]
 public class WordDto
 {
     public int id;
-    public string japanese;
-    public string korean;
-    public int level;
+    public string japanese;      // ì¼ë³¸ì–´ ë‹¨ì–´ (íˆë¼ê°€ë‚˜)
+    public string korean;        // í•œê¸€ ëœ»
+    public int level;            // ë‚œì´ë„ (1~3)
+    public string[] candidates;  // íˆë¼ê°€ë‚˜ í›„ë³´êµ° (5ê¸€ì)
 }
 
-// JsonUtility´Â ¹è¿­ Á÷·ÄÈ­¸¦ ¹Ù·Î ¸ø ÇØ¼­ ·¡ÆÛ ÇÊ¿ä
+/// <summary>
+/// JsonUtilityëŠ” ìµœìƒìœ„ JSON ë°°ì—´ì„ ì§ì ‘ íŒŒì‹±í•  ìˆ˜ ì—†ê¸° ë•Œë¬¸ì—
+/// ë°°ì—´ì„ ê°ì‹¸ëŠ” Wrapper í´ë˜ìŠ¤ê°€ í•„ìš”í•¨
+/// </summary>
 [Serializable]
 public class WordDtoArrayWrapper
 {
@@ -23,13 +30,13 @@ public class WordDtoArrayWrapper
 
 public class WordApiClient : MonoBehaviour
 {
-    [Header("FastAPI ¼­¹ö ÁÖ¼Ò")]
-    [Tooltip("¸Ç µÚ¿¡ ½½·¡½Ã ¾øÀ½. ¿¹) http://127.0.0.1:8000")]
+    [Header("FastAPI ì„œë²„ ì£¼ì†Œ")]
+    [Tooltip("ëì— ìŠ¬ë˜ì‹œ ì—†ì´ ì…ë ¥ (ì˜ˆ: http://127.0.0.1:8000)")]
     public string baseUrl = "http://127.0.0.1:8000";
 
     /// <summary>
-    /// ÁöÁ¤ÇÑ ·¹º§ÀÇ ´Ü¾î ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
-    /// »ç¿ë ¿¹:
+    /// ì§€ì •í•œ ë ˆë²¨ì˜ ë‹¨ì–´ ëª©ë¡ì„ ì„œë²„ì—ì„œ ê°€ì ¸ì˜¨ë‹¤.
+    /// ì‚¬ìš© ì˜ˆ:
     /// StartCoroutine(LoadWordsByLevel(1, OnWordsLoaded));
     /// </summary>
     public IEnumerator LoadWordsByLevel(int level, Action<List<WordDto>> onCompleted)
@@ -46,24 +53,30 @@ public class WordApiClient : MonoBehaviour
             if (req.isNetworkError || req.isHttpError)
 #endif
             {
-                Debug.LogError($"[WordApiClient] ¿äÃ» ½ÇÆĞ: {req.error}");
+                Debug.LogError($"[WordApiClient] ìš”ì²­ ì‹¤íŒ¨: {req.error}");
                 onCompleted?.Invoke(null);
                 yield break;
             }
 
-            // FastAPI°¡ JSON ¹è¿­À» Á÷Á¢ ³»·ÁÁØ´Ù°í °¡Á¤:  [ { ... }, { ... } ]
+            // FastAPIì—ì„œ JSON ë°°ì—´ í˜•íƒœë¡œ ë°˜í™˜í•œë‹¤ê³  ê°€ì •:
+            // [ { ... }, { ... } ]
             string rawJson = req.downloadHandler.text;
-            // JsonUtility´Â ¹è¿­À» ¹Ù·Î ¸ø ÀĞÀ¸´Ï, ·¡ÆÛ °´Ã¼·Î °¨½Ô´Ï´Ù.
+
+            // JsonUtilityëŠ” ë°°ì—´ì„ ì§ì ‘ íŒŒì‹±í•  ìˆ˜ ì—†ìœ¼ë¯€ë¡œ
+            // ì„ì‹œë¡œ ê°ì²´ë¡œ ê°ì‹¸ì„œ íŒŒì‹±í•œë‹¤.
             string wrappedJson = "{\"items\":" + rawJson + "}";
 
             WordDtoArrayWrapper wrapper = null;
+
             try
             {
                 wrapper = JsonUtility.FromJson<WordDtoArrayWrapper>(wrappedJson);
             }
             catch (Exception e)
             {
-                Debug.LogError($"[WordApiClient] JSON ÆÄ½Ì ½ÇÆĞ: {e.Message}\n¿øº»: {rawJson}");
+                Debug.LogError(
+                    $"[WordApiClient] JSON íŒŒì‹± ì‹¤íŒ¨: {e.Message}\nì›ë³¸ JSON: {rawJson}"
+                );
                 onCompleted?.Invoke(null);
                 yield break;
             }
