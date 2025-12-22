@@ -1,10 +1,9 @@
-using System;
+ï»¿using System;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using NativeWebSocket;
 
-// ¼­¹ö°¡ º¸³»ÁÖ´Â JSON Çü½Ä: { "x": 0.123, "y": 0.456 }
 [Serializable]
 public class HandPositionMessage
 {
@@ -14,59 +13,87 @@ public class HandPositionMessage
 
 public class HandWebSocketClient : MonoBehaviour
 {
-    [Header("WebSocket ¼­¹ö ÁÖ¼Ò")]
+    [Header("WebSocket ì„œë²„ ì£¼ì†Œ")]
     public string websocketUrl = "ws://127.0.0.1:8000/ws";
 
     private WebSocket websocket;
+    private bool isConnecting;
+    private bool isQuitting;
 
-    /// <summary>
-    /// ¿ÜºÎ¿¡¼­ ¼Õ°¡¶ô À§Ä¡¸¦ ±¸µ¶ÇÒ ¼ö ÀÖµµ·Ï ÇÏ´Â ÀÌº¥Æ®
-    /// (0~1 »çÀÌÀÇ Á¤±ÔÈ­µÈ ÁÂÇ¥¶ó°í °¡Á¤)
-    /// </summary>
     public event Action<Vector2> OnHandPositionReceived;
+
+    public bool IsOpen => websocket != null && websocket.State == WebSocketState.Open;
 
     private async void Start()
     {
-        await Connect();
+        // ë§¤ë‹ˆì €ê°€ ìˆì„ ë•Œë„ Startê°€ í˜¸ì¶œë  ìˆ˜ ìˆìœ¼ë‹ˆ ì•ˆì „í•˜ê²Œ ë³´ì¥ë§Œ
+        await EnsureConnected();
     }
 
-    private async Task Connect()
+    public async Task EnsureConnected()
     {
+        if (isConnecting) return;
+        if (websocket != null &&
+            (websocket.State == WebSocketState.Open || websocket.State == WebSocketState.Connecting))
+            return;
+
+        isConnecting = true;
+        try
+        {
+            await ConnectInternal();
+        }
+        finally
+        {
+            isConnecting = false;
+        }
+    }
+
+    private async Task ConnectInternal()
+    {
+        await CloseAsync();
+
         websocket = new WebSocket(websocketUrl);
 
         websocket.OnOpen += () =>
         {
-            Debug.Log("[HandWebSocketClient] ¿¬°á ¼º°ø");
+            Debug.Log("[HandWebSocketClient] ì—°ê²° ì„±ê³µ");
         };
 
         websocket.OnError += (e) =>
         {
-            Debug.LogError("[HandWebSocketClient] ¿¡·¯: " + e);
+            Debug.LogError("[HandWebSocketClient] ì—ëŸ¬: " + e);
         };
 
         websocket.OnClose += (e) =>
         {
-            Debug.LogWarning("[HandWebSocketClient] ¿¬°á Á¾·á: " + e);
+            Debug.LogWarning("[HandWebSocketClient] ì—°ê²° ì¢…ë£Œ: " + e);
         };
 
         websocket.OnMessage += (bytes) =>
         {
-            // ¼­¹ö¿¡¼­ ¿Â ¸Ş½ÃÁö¸¦ ¹®ÀÚ¿­·Î º¯È¯
             string json = Encoding.UTF8.GetString(bytes);
-            // Debug.Log("[HandWebSocketClient] ¹ŞÀº ¸Ş½ÃÁö: " + json);
+
+            // âœ… ì„œë²„ê°€ {"status":"warming_up"} / {"status":"ready"} ê°™ì€ ë©”ì‹œì§€ë¥¼ ë¨¼ì € ë³´ë‚¼ ìˆ˜ ìˆìŒ
+            // JsonUtilityëŠ” ì—†ëŠ” í•„ë“œë¥¼ 0ìœ¼ë¡œ ì±„ìš°ë¯€ë¡œ, x/y í‚¤ê°€ ì—†ìœ¼ë©´ ì ˆëŒ€ íŒŒì‹±í•˜ì§€ ì•ŠëŠ”ë‹¤.
+            if (!json.Contains("\"x\"") || !json.Contains("\"y\""))
+                return;
 
             try
             {
                 var msg = JsonUtility.FromJson<HandPositionMessage>(json);
-                if (msg != null)
-                {
-                    var pos = new Vector2(msg.x, msg.y);
-                    OnHandPositionReceived?.Invoke(pos);
-                }
+                if (msg == null) return;
+
+                var pos = new Vector2(msg.x, msg.y);
+
+                // (ì„ íƒ) ë²”ìœ„ í•„í„°ë§: ì„œë²„ê°€ ì •ê·œí™” 0~1ì„ ì¤€ë‹¤ëŠ” ì „ì œ
+                if (pos.x < 0f || pos.x > 1f || pos.y < 0f || pos.y > 1f)
+                    return;
+
+                OnHandPositionReceived?.Invoke(pos);
             }
             catch (Exception ex)
             {
-                Debug.LogError("[HandWebSocketClient] JSON ÆÄ½Ì ½ÇÆĞ: " + ex.Message);
+                Debug.LogWarning("[HandWebSocketClient] JSON íŒŒì‹± ìŠ¤í‚µ: " + ex.Message + " / raw=" + json);
             }
         };
 
@@ -76,20 +103,46 @@ public class HandWebSocketClient : MonoBehaviour
     private void Update()
     {
 #if !UNITY_WEBGL || UNITY_EDITOR
-        // WebGLÀÌ ¾Æ´Ñ °æ¿ì¿¡´Â ¸Å ÇÁ·¹ÀÓ¸¶´Ù ¸Ş½ÃÁö Å¥ Ã³¸®
         websocket?.DispatchMessageQueue();
 #endif
     }
 
-    private async void OnApplicationQuit()
+    public async Task CloseAsync()
     {
-        if (websocket != null)
+        if (websocket == null) return;
+
+        try
         {
-            await websocket.Close();
+            if (websocket.State == WebSocketState.Open || websocket.State == WebSocketState.Connecting)
+                await websocket.Close();
+        }
+        catch { }
+        finally
+        {
+            websocket = null;
         }
     }
 
-    // ÇÊ¿äÇÏ´Ù¸é ¼­¹ö·Î µ¥ÀÌÅÍµµ º¸³¾ ¼ö ÀÖÀ½
+    public void ForceClose()
+    {
+        _ = CloseAsync();
+    }
+
+    private void OnDisable()
+    {
+        // âœ… DontDestroyOnLoad ë§¤ë‹ˆì € êµ¬ì¡°ì—ì„œëŠ” ì”¬ ë¡œë“œë¡œ ë¹„í™œì„±í™”ë˜ëŠ” ê²½ìš°ê°€ ìˆì„ ìˆ˜ ìˆìœ¼ë‹ˆ
+        // ì—¬ê¸°ì„œ ëŠì–´ë²„ë¦¬ë©´ "ì¬ë„ì „ ì‹œ ì•„ì˜ˆ ì—°ê²° ì‹œë„ì¡°ì°¨ ì•ˆ í•¨"ì²˜ëŸ¼ ë³´ì´ëŠ” ë¬¸ì œê°€ ì¬ë°œí•  ìˆ˜ ìˆìŒ.
+        // ì•± ì¢…ë£Œ ë•Œë§Œ ì •ë¦¬.
+        if (isQuitting)
+            _ = CloseAsync();
+    }
+
+    private void OnApplicationQuit()
+    {
+        isQuitting = true;
+        _ = CloseAsync();
+    }
+
     public async void SendText(string message)
     {
         if (websocket == null || websocket.State != WebSocketState.Open)

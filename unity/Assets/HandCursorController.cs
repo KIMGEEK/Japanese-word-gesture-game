@@ -1,51 +1,90 @@
-using UnityEngine;
-using UnityEngine.UI;
+ï»¿using UnityEngine;
 
 public class HandCursorController : MonoBehaviour
 {
-    [Header("¼Õ ÁÂÇ¥ WebSocket Å¬¶óÀÌ¾ğÆ®")]
+    [Header("ì† ì¢Œí‘œ WebSocket í´ë¼ì´ì–¸íŠ¸ (ë¹„ì›Œë„ ë¨: ìë™ íƒìƒ‰)")]
     public HandWebSocketClient wsClient;
 
-    [Header("È­¸é À§¿¡ ¿òÁ÷ÀÏ Ä¿¼­(¿¹: ÀÛÀº ¿ø ¸ğ¾ç Image)")]
+    [Header("í™”ë©´ ìœ„ì— ì›€ì§ì¼ ì»¤ì„œ(ì˜ˆ: ì‘ì€ ì› ëª¨ì–‘ Image)")]
     public RectTransform cursorRect;
 
-    [Header("ÁÂÇ¥ ÇØ¼®¿ë Canvas")]
+    [Header("ì¢Œí‘œ í•´ì„ìš© Canvas")]
     public Canvas canvas;
 
-    private Vector2 smoothPos;   // ½º¹«µùµÈ ÁÂÇ¥
-    private float smoothFactor = 0.15f; // ÀÛÀ»¼ö·Ï ºÎµå·´°Ô
+    [Range(0.01f, 1f)]
+    public float smoothFactor = 0.15f;
+
+    private Vector2 smoothPos;
+    private Vector2 targetPos;
+    private bool hasReceivedAnyPos = false;
+
+    private HandInputManager mgr;
 
     private void Awake()
     {
-        if (wsClient != null)
-        {
-            wsClient.OnHandPositionReceived += OnHandPositionReceived;
-        }
-    }
+        // ì»¤ì„œ ìˆ¨ê¹€(ì¢Œí‘œ ëª» ë°›ëŠ” ë™ì•ˆ 0,0ìœ¼ë¡œ ëŒë ¤ê°€ì§€ ì•Šê²Œ)
+        if (cursorRect != null)
+            cursorRect.gameObject.SetActive(false);
 
-    private Vector2 targetPos; // WebSocket¿¡¼­ ¹ŞÀº ¿øº» ÁÂÇ¥
+        // ë§¤ë‹ˆì €/í´ë¼ì´ì–¸íŠ¸ ìë™ í™•ë³´
+        mgr = HandInputManager.Instance != null
+            ? HandInputManager.Instance
+            : Object.FindFirstObjectByType<HandInputManager>(FindObjectsInactive.Include);
+
+        if (wsClient == null && mgr != null)
+            wsClient = mgr.Client;
+
+        if (wsClient != null)
+            wsClient.OnHandPositionReceived += OnHandPositionReceived;
+
+        if (mgr != null)
+            mgr.OnSceneReloaded += ResetCursorState;
+    }
 
     private void OnDestroy()
     {
         if (wsClient != null)
-        {
             wsClient.OnHandPositionReceived -= OnHandPositionReceived;
-        }
+
+        if (mgr != null)
+            mgr.OnSceneReloaded -= ResetCursorState;
+    }
+
+    public void ResetCursorState()
+    {
+        hasReceivedAnyPos = false;
+        smoothPos = Vector2.zero;
+        targetPos = Vector2.zero;
+
+        if (cursorRect != null)
+            cursorRect.gameObject.SetActive(false);
     }
 
     private void OnHandPositionReceived(Vector2 normalizedPos)
     {
+        if (canvas == null) return;
+
         RectTransform canvasRect = canvas.GetComponent<RectTransform>();
 
-        // (0,0)~(1,1) ¡æ Canvas ÁÂÇ¥·Î ¸ÊÇÎ
         float x = (normalizedPos.x - 0.5f) * canvasRect.sizeDelta.x;
         float y = ((1 - normalizedPos.y) - 0.5f) * canvasRect.sizeDelta.y;
 
         targetPos = new Vector2(x, y);
+
+        if (!hasReceivedAnyPos)
+        {
+            hasReceivedAnyPos = true;
+            smoothPos = targetPos;
+
+            if (cursorRect != null)
+                cursorRect.gameObject.SetActive(true);
+        }
     }
 
     private void Update()
     {
+        if (!hasReceivedAnyPos) return;
+
         smoothPos = Vector2.Lerp(smoothPos, targetPos, smoothFactor);
 
         if (cursorRect != null)

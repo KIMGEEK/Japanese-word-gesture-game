@@ -1,4 +1,4 @@
-import os
+﻿import os
 import platform
 import cv2
 import json
@@ -112,12 +112,10 @@ def _safe_close_preview():
 
 app = FastAPI()
 
-
 @app.on_event("startup")
-def startup_prewarm():
+def startup_prewarm() -> None:
     """1순위: 서버 시작 시 MediaPipe import + Hands 생성(프리웜)"""
     global mp, mp_hands, mp_drawing, hands
-
     try:
         import mediapipe as _mp
 
@@ -206,7 +204,7 @@ def get_words_by_level(level: int, db: Session = Depends(get_db)):
 # 4. WebSocket: 손가락 좌표 스트리밍
 # ==========================================
 @app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
+async def websocket_endpoint(websocket: WebSocket) -> None:
     global active_ws
 
     await websocket.accept()
@@ -218,16 +216,19 @@ async def websocket_endpoint(websocket: WebSocket):
     # 동시에 여러 클라가 붙으면 카메라/리소스 충돌 가능 -> 1명만 허용
     async with active_ws_lock:
         if active_ws is not None:
-            await websocket.send_json({"error": "busy", "detail": "Another client is already connected."})
-            await websocket.close()
-            return
+            try:
+                await active_ws.close()
+            except Exception:
+                pass
         active_ws = websocket
+
 
     # MediaPipe 프리웜 실패 시 여기서 안내
     if hands is None or mp_hands is None:
         await websocket.send_json({"error": "mediapipe_init_failed", "detail": "MediaPipe/Hands not initialized."})
         async with active_ws_lock:
-            active_ws = None
+            if active_ws is websocket:
+                active_ws = None
         await websocket.close()
         return
 
@@ -237,7 +238,8 @@ async def websocket_endpoint(websocket: WebSocket):
         await websocket.send_json({"error": "camera_open_failed", "detail": "Could not open camera."})
         cap.release()
         async with active_ws_lock:
-            active_ws = None
+            if active_ws is websocket:
+              active_ws = None
         await websocket.close()
         return
 
@@ -258,7 +260,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 results = hands.process(rgb_frame)
 
             data_to_send = None
-            if results.multi_hand_landmarks:
+            if results and results.multi_hand_landmarks:
                 hand_landmarks = results.multi_hand_landmarks[0]
 
                 # 3순위: 디버그용 드로잉/프리뷰는 옵션으로만
@@ -279,18 +281,25 @@ async def websocket_endpoint(websocket: WebSocket):
             await asyncio.sleep(0.01)
 
     except WebSocketDisconnect:
-        print("Client Disconnected")
+        print("[WS] Client Disconnected")
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"[WS] Error: {e}")
         try:
             await websocket.send_json({"error": "server_error", "detail": str(e)})
         except Exception:
             pass
     finally:
-        cap.release()
-        _safe_close_preview()
+        if cap:
+            cap.release()
+            _safe_close_preview()
+        if SHOW_PREVIEW:
+            try:
+                cv2.destroyAllWindows()
+            except Exception:
+                pass
         async with active_ws_lock:
-            active_ws = None
+            if active_ws is websocket:
+                active_ws = None
         try:
             await websocket.close()
         except Exception:
