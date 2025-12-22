@@ -20,7 +20,7 @@ def make_candidates(word: str) -> list[str]:
     - 글자 수가 5 미만이면, 단어에 없는 글자를 랜덤으로 추가
     - 최종 5개로 셔플
     """
-    chars = list(dict.fromkeys(word))  # 중복 제거(순서 유지)
+    chars = list(word)  # 중복된 글자도 포함이 되어야 함
     # 단어가 5글자인데 중복이 많으면 chars가 5 미만일 수 있음 -> 아래에서 채움
     while len(chars) < 5:
         pick = random.choice(HIRAGANA_POOL)
