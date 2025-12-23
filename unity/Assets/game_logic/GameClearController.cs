@@ -63,15 +63,22 @@ public class GameClearController : MonoBehaviour
     /// </summary>
     public void ReturnHome()
     {
-        // Hide the clear panel and resume time.
+        // 패널 숨기고 게임 시간 재개
         if (clearPanel != null)
             clearPanel.SetActive(false);
         Time.timeScale = 1f;
 
-        // Reset the quiz level to the beginning.
+        // 진행 레벨 초기화
         WordQuizManager.targetLevel = 1;
 
-        // Load the StartScene to return to the home screen.
+        // 현재 남아있는 HandWebSocketClient를 찾아서 강제로 종료
+        var wsClient = Object.FindAnyObjectByType<HandWebSocketClient>();
+        if (wsClient != null)
+        {
+            wsClient.ForceClose();
+        }
+
+        // 홈 화면으로 이동
         SceneManager.LoadScene("StartScene");
     }
 }
