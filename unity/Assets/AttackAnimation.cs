@@ -31,6 +31,11 @@ public class AttackAnimation : MonoBehaviour
     [Header("기타")]
     public bool isPlayer = false;
 
+    public GameObject projectilePrefab;        // 프리팹 할당
+    public Transform projectileSpawnPoint;     // 발사 위치
+    public Transform projectileTarget;         // 목표 위치
+    public float projectileSpeed = 12f;        // 이동 속도
+
     [Header("Death Adjustment")]
     public Vector2 deathOffset = new Vector2(0, -40);
     public float deathScale = 0.8f;
@@ -76,6 +81,14 @@ public class AttackAnimation : MonoBehaviour
             rt.localScale = Vector3.Lerp(startScale, targetScale, k);
 
             yield return null;
+        }
+
+        // 첫 번째 프레임 또는 원하는 지점에서 투사체 생성:
+        if (projectilePrefab != null && projectileSpawnPoint != null && projectileTarget != null)
+        {
+            GameObject proj = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
+            Projectile p = proj.GetComponent<Projectile>();
+            p.Initialize(projectileTarget.position, projectileSpeed);
         }
 
         // 2) 공격 프레임 재생
